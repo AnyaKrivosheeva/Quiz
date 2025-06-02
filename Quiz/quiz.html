@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./quiz.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oi&family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+    <title>Quiz</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="heading">
+                Тест на знание "Смешариков"
+            </div>
+            <div class="questions-wrapper">
+                <div class="question">
+                    Какой-то вопрос?
+                </div>
+                <div class="answers-wrapper">
+                    <button class="answer-button">ответ</button>
+                    <button class="answer-button ">ответ</button>
+                    <button class="answer-button ">ответ</button>
+                    <button class="answer-button ">ответ</button>
+                    <input type="text" id="inputForAnswer" placeholder="введи свой ответ" class="answer-input" required>
+                </div>
+                <div class="results">
+                    Вы ответили правильно на <span class="right"></span> из <span class="total"></span> вопросов (<span
+                        class="percent"></span>%).
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button class="pushing-button start">START</button>
+                <button class="pushing-button restart">RESTART</button>
+            </div>
+        </div>
+    </main>
+
+
+
+
+
+
+
+    <script src="./quiz.js"></script>
+</body>
+
+</html>
