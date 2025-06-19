@@ -1,18 +1,3 @@
-const start = document.querySelector(".start");
-const restart = document.querySelector(".restart");
-const progressBar = document.querySelector(".progress-bar");
-const completedPart = document.querySelector(".completed-part");
-const questionsWrapper = document.querySelector(".questions-wrapper");
-const questionText = document.querySelector(".question");
-const answersWrapper = document.querySelector(".answers-wrapper");
-const results = document.querySelector(".results");
-const total = document.querySelector(".total");
-const right = document.querySelector(".right");
-const percent = document.querySelector(".percent");
-
-let currentQuestionIndex = 0;
-let score = 0;
-
 const questions = [
     {
         type: "multiple",
@@ -73,7 +58,37 @@ const questions = [
     },
 ];
 
-total.textContent = questions.length;
+const start = document.querySelector(".start");
+const restart = document.querySelector(".restart");
+const progressBar = document.querySelector(".progress-bar");
+const completedPart = document.querySelector(".completed-part");
+const questionsWrapper = document.querySelector(".questions-wrapper");
+const questionText = document.querySelector(".question");
+const answersWrapper = document.querySelector(".answers-wrapper");
+const results = document.querySelector(".results");
+const totals = document.querySelectorAll(".total");
+const right = document.querySelector(".right");
+const percent = document.querySelector(".percent");
+const bestResults = document.querySelector(".best-results");
+const bestRight = document.querySelector(".best-right");
+const bestPercent = document.querySelector(".best-percent");
+const timer = document.querySelector(".timer");
+const timeLeftDisplay = document.querySelector(".time-left");
+
+let currentQuestionIndex = 0;
+let score = 0;
+let bestScore = 0;
+let timerLeft = 30;
+let timerId;
+
+const savedBest = localStorage.getItem("bestScore");  // получаем из локального хранилища данные
+if (savedBest !== null) {
+    bestScore = parseInt(savedBest);     // превращаем строку из локального хранилища в число
+}
+
+totals.forEach((el) => {
+    el.textContent = questions.length;
+});
 
 start.addEventListener("click", () => {
     start.style.display = "none";
@@ -86,10 +101,13 @@ start.addEventListener("click", () => {
 function showQuestion() {
     progressBar.style.display = "block";
     let barWidth = ((currentQuestionIndex + 1) * 100 / questions.length) + "%";
+    timer.style.display = "block";
     const currentQuestion = questions[currentQuestionIndex];        // получаем текущий вопрос из массива по индексу
     questionText.textContent = currentQuestion.question;            // изменяем текст вопроса
 
     answersWrapper.innerHTML = "";                                  // очищает поле от предыдущих ответов
+
+    startTimer();
 
     if (currentQuestion.type === "multiple") {                      // проверка на тип вопроса
 
@@ -101,6 +119,7 @@ function showQuestion() {
 
             btn.addEventListener("click", () => {                       // навешиваем на кнопку-ответ событие по клику
                 completedPart.style.width = barWidth;
+                clearInterval(timerId);
                 if (btn.textContent === currentQuestion.answer) {       // тут проверка на правильность ответа( те текст в кнопке совпадает с тем что у нас находится в answer)
                     score++;                                            // при правильном ответе увеличиваем счетчик правильных ответов
                     btn.classList.add("correct");                       // и добавляем зеленую подсветку
@@ -129,6 +148,7 @@ function showQuestion() {
 
         input.addEventListener("keydown", function (event) {            // добавляем событие на инпут по нажатию на клавишу enter (я решила не делать отдельную кнопку)
             if (event.key === "Enter") {
+                clearInterval(timerId);
                 const userAnswer = input.value.trim();     // записываем ответ юзера в отдельную переменную и убираем лишние пробелы
                 completedPart.style.width = barWidth;
 
@@ -164,11 +184,21 @@ function nextQuestion() {                            // вспомогатель
 function showResults() {
     results.style.display = "block";
     restart.style.display = "block";
+    bestResults.style.display = "block";
     progressBar.style.display = "none";
+    timer.style.display = "none";
     questionsWrapper.style.display = "none";
 
     right.textContent = score;
     percent.textContent = score / questions.length * 100;
+
+    if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem("bestScore", bestScore.toString());
+    }
+
+    bestRight.textContent = bestScore;
+    bestPercent.textContent = bestScore / questions.length * 100;
 };
 
 restart.addEventListener("click", () => {
@@ -183,10 +213,55 @@ function restartQuiz() {
     questionText.textContent = "";
     right.textContent = "";
     percent.textContent = "";
+    bestRight.textContent = "";
+    bestPercent.textContent = "";
 
     results.style.display = "none";
+    bestResults.style.display = "none";
     restart.style.display = "none";
     start.style.display = "block";
     completedPart.style.width = "0%";
 };
 
+function startTimer() {
+
+    clearInterval(timerId);
+
+    let timerLeft = 20;
+    timeLeftDisplay.textContent = timerLeft;
+
+    timerId = setInterval(() => {
+        timerLeft--;
+        timeLeftDisplay.textContent = timerLeft;
+
+        if (timerLeft === 0) {
+            clearInterval(timerId);
+            const currentQuestion = questions[currentQuestionIndex];
+
+            if (currentQuestion.type === "multiple") {
+                [...answersWrapper.children].forEach(b => {
+                    if (b.textContent === currentQuestion.answer) {
+                        b.classList.add("correct");
+                    }
+                });
+            } else {
+                const correctAnswerHint = document.createElement("div");
+                correctAnswerHint.classList.add("correct-hint");
+                correctAnswerHint.textContent = `Правильный ответ: ${currentQuestion.answer[0]}`;
+                answersWrapper.append(correctAnswerHint);
+            }
+
+            let barWidth = ((currentQuestionIndex + 1) * 100 / questions.length) + "%";
+            completedPart.style.width = barWidth;
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1000);
+        }
+    }, 1000);
+};
