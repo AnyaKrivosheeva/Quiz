@@ -14,7 +14,7 @@ const questions = [
     {
         type: "text",
         question: "Как зовут сына Пина?",
-        answer: ["Биби", "биби", "БИБИ", "Би-Би", "би-би", "БИ-БИ"],
+        answer: ["Биби", "биби", "би-би",],
     },
     {
         type: "multiple",
@@ -42,7 +42,7 @@ const questions = [
     {
         type: "text",
         question: "Сколько основных персонажей в мультфильме? (Биби не считаем за основного персонажа)",
-        answer: ["9",],
+        answer: ["9", "девять",],
     },
     {
         type: "multiple",
@@ -147,9 +147,9 @@ function showQuestion() {
         answersWrapper.append(input);                              // добавляем в "обертку"
 
         input.addEventListener("keydown", function (event) {            // добавляем событие на инпут по нажатию на клавишу enter (я решила не делать отдельную кнопку)
-            if (event.key === "Enter") {
+            if (event.key === "Enter" && input.value.trim() !== "") {
                 clearInterval(timerId);
-                const userAnswer = input.value.trim();     // записываем ответ юзера в отдельную переменную и убираем лишние пробелы
+                const userAnswer = input.value.trim().toLowerCase();     // записываем ответ юзера в отдельную переменную и убираем лишние пробелы
                 completedPart.style.width = barWidth;
 
                 if (currentQuestion.answer.includes(userAnswer)) {       // делаем проверку что ответ юзера совпадает с тем что у нас записано в  правильном ответе
