@@ -78,7 +78,6 @@ const timeLeftDisplay = document.querySelector(".time-left");
 let currentQuestionIndex = 0;
 let score = 0;
 let bestScore = 0;
-let timerLeft = 30;
 let timerId;
 
 const savedBest = localStorage.getItem("bestScore");  // получаем из локального хранилища данные
@@ -169,7 +168,7 @@ function showQuestion() {
             }
         });
     }
-}
+};
 
 function nextQuestion() {                            // вспомогательная функция для вызова следующего вопроса
     currentQuestionIndex++;                          // увеличиваем индекс вопроса чтобы вывелся новый вопрос
