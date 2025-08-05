@@ -67,7 +67,6 @@
 }
 
 .container .questions-wrapper .answers-wrapper .answer-button {
-    all: unset;
     cursor: pointer;
     font-size: 25px;
     border: 3px solid #06a2de;
@@ -75,9 +74,6 @@
     color: black;
     border-radius: 12px;
     padding: 3px 6px;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    user-select: none;
 }
 
 .container .questions-wrapper .answers-wrapper .answer-button:hover {
