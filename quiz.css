@@ -67,7 +67,7 @@
 }
 
 .container .questions-wrapper .answers-wrapper .answer-button {
-    all:unset;
+    all: unset;
     cursor: pointer;
     font-size: 25px;
     border: 3px solid #06a2de;
@@ -75,6 +75,9 @@
     color: black;
     border-radius: 12px;
     padding: 3px 6px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
 }
 
 .container .questions-wrapper .answers-wrapper .answer-button:hover {
@@ -318,6 +321,13 @@
     .container .questions-wrapper .answers-wrapper .answer-button.incorrect {
         border: 4px solid rgb(244, 10, 10);
         box-shadow: 0 0 5px 2px rgb(244, 10, 10, 0.5);
+    }
+
+    .container .questions-wrapper .answers-wrapper .answer-button:focus,
+    .container .questions-wrapper .answers-wrapper .answer-button:focus-visible,
+    .container .questions-wrapper .answers-wrapper .answer-button:active {
+        outline: none;
+        box-shadow: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-input {
