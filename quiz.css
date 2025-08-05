@@ -67,10 +67,12 @@
 }
 
 .container .questions-wrapper .answers-wrapper .answer-button {
+    all:unset;
     cursor: pointer;
     font-size: 25px;
     border: 3px solid #06a2de;
     background-color: white;
+    color: black;
     border-radius: 12px;
     padding: 3px 6px;
 }
@@ -207,12 +209,14 @@
         border: 5px solid rgba(12, 191, 19, 0.82);
         transition: border-color 0.3s ease;
         box-shadow: 0 0 7px 3px rgba(12, 191, 19, 0.5);
+        outline: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button.incorrect {
         border: 5px solid rgb(244, 10, 10);
         transition: border-color 0.3s ease;
         box-shadow: 0 0 7px 3px rgb(244, 10, 10, 0.5);
+        outline: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-input {
