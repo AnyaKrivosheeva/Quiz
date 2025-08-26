@@ -168,6 +168,12 @@ function showQuestion() {
             }
         });
     }
+
+    setTimeout(() => {
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+    }, 0);
 };
 
 function nextQuestion() {                            // вспомогательная функция для вызова следующего вопроса
