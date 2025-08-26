@@ -305,6 +305,7 @@
         font-size: 16px;
         border-radius: 10px;
         padding: 1px 3px;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button:hover {
