@@ -169,6 +169,7 @@
 @media (hover: none) and (pointer: coarse) {
     .container .questions-wrapper .answers-wrapper .answer-button:focus {
         outline: none;
+        box-shadow: none;
     }
 }
 
@@ -205,10 +206,12 @@
         border: 3px solid #06a2de;
         box-shadow: 0 0 7px 2px rgb(6, 162, 222, 0.5); */
         outline: none;
+        box-shadow: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button:focus {
         outline: none;
+        box-shadow: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button.correct {
@@ -309,10 +312,12 @@
         border: 3px solid #06a2de;
         box-shadow: 0 0 7px 2px rgb(6, 162, 222, 0.5); */
         outline: none;
+        box-shadow: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button:focus {
         outline: none;
+        box-shadow: none;
     }
 
     .container .questions-wrapper .answers-wrapper .answer-button.correct {
